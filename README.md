@@ -1,5 +1,7 @@
 # ReviewSense
 
+ReviewSense leverages retrieval-augmented generation with LoRA fine-tuning to extract actionable insights from large-scale product review datasets. Built with LangGraph for agentic workflows and Pinecone for vector search, it provides intelligent product analysis through category-specific sentiment classification.
+
 ## Running the Script
 - Note that the reviewsense_pipeline.py file takes less than 5 minutes to run, so there is no unit test file
 - The Script contains several Unit Test Questions.
