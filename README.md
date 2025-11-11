@@ -1,13 +1,12 @@
-# Final Stiching Project
+# ReviewSense
 
 ## Running the Script
-- Note that the Stiching_Hongkai.py file takes less than 5 minutes to wrong, so there is no unit test file
+- Note that the reviewsense_pipeline.py file takes less than 5 minutes to run, so there is no unit test file
 - The Script contains several Unit Test Questions.
-- The Docker image is at deepdish4 server with the image name pin2118/stiching_project
-- For running the advanced RAG Agent with Lora Fine Tuned Model, use the Stiching_Hongkai_frontend.py, where you can input questions and model at your choice, or if you want to compare them
-- Just use [docker run -it pin2118/stiching_project python Stiching_Hongkai_frontend.py] command and the front end system will run
+- GPU usage is recommended for faster inference. Cloud deployment is also recommended.
+- For running the advanced RAG Agent with Lora Fine Tuned Model, use the reviewsense_frontend.py, where you can input questions and model at your choice, or if you want to compare them
+- Just use [docker run -it reviewsense python reviewsense_frontend.py] command and the front end system will run
 
-- 
 ## Data
 - The data is provided as [final_review_chunked_df.csv](https://drive.google.com/file/d/13I5BZIz7itCWmw5oiAx6PivQEM68FptB/view?usp=sharing)
 - Download the data as in the name as final_review_chunked_df.csv
@@ -26,72 +25,17 @@
 - Note that there is a .env file in the dockerfile that is expected to have. You can remove that if you find it is not there
 - If you change the name of the dataset, remember to change it as well in the dockerfile to avoid running into any issue.
 
-# Docker Instruction
+# Docker Instructions
 
-## Running the Project on DeepDish Server
+## Building the Docker Image
 
-To run this project on a **DeepDish** server at **Northwestern University**, follow the steps below:
-
-### 1. Copy Your Files to DeepDish
-
-You need to transfer your project files to DeepDish. You have two options:
-
-#### **Option A: Using SFTP (FileZilla)**
-- Connect to **DeepDish** using **FileZilla** or any other SFTP software.
-- Upload your project directory to your home folder (`~`).
-
-#### **Option B: Using SCP (from Terminal)**
-If you prefer the command line, use `scp` to copy files over:
+Build your Docker image:
 
 ```bash
-scp -r local_project_directory netid@mlds-deepdish2.ads.northwestern.edu:~/
+docker build -t reviewsense .
 ```
 
-Replace `netid` with your **Northwestern NetID**.
-
----
-
-### 2. Connect to a DeepDish Server
-
-Use SSH to connect to a DeepDish server:
-
-```bash
-ssh netid@mlds-deepdishX.ads.northwestern.edu
-```
-
-> Replace **`X`** with a number between **1 and 4** (e.g., `mlds-deepdish2`).
-
----
-
-### 3. Navigate to Your Project Directory
-
-Once logged in, navigate to the directory where you uploaded your Docker files:
-
-```bash
-cd ~/your_project_directory
-```
-
----
-
-### 4. Build the Docker Image
-
-Run the following command to build your Docker image:
-
-```bash
-docker build -t name_of_the_image /path/to/directory
-```
-
-If you're inside the project directory, you can simply use:
-
-```bash
-docker build -t pin2118/stiching_project .
-```
-
-Replace **`netid`** with your **Northwestern NetID**.
-
----
-
-### 5. Verify the Docker Image Was Built
+## Verify the Docker Image Was Built
 
 Check if the image was successfully created by running:
 
@@ -100,32 +44,28 @@ docker images
 ```
 This command will list all available images. Look for your **image name** in the output.
 
----
-
-### 6. Run the Docker Image
+## Run the Docker Image
 
 To start a container from your image:
 
 ```bash
-docker run -it pin2118/stiching_project /bin/bash
+docker run -it reviewsense /bin/bash
 ```
 
 This opens an interactive session inside the container.
 
-If you want to run the whole code (Stiching_Hongkai.py)
+If you want to run the whole code (reviewsense_pipeline.py)
 
 ```bash
-docker run -it pin2118/stiching_project
+docker run -it reviewsense
 ```
 
-If you want to run the Front End (Stiching_Hongkai_frontend.py
+If you want to run the Front End (reviewsense_frontend.py)
 ```bash
-docker run -it pin2118/stiching_project python Stiching_Hongkai_frontend.py
+docker run -it reviewsense python reviewsense_frontend.py
 ```
 
----
-
-### 7. Delete Docker Image (When No Longer Needed)
+## Delete Docker Image (When No Longer Needed)
 
 To remove an image you no longer need:
 
@@ -144,5 +84,3 @@ To remove an image you no longer need:
    ```bash
    docker rmi -f image_id
    ```
-
-
